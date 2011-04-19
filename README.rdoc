@@ -87,6 +87,15 @@ If you have multiple sections in your talk, you can make this json array
 include all the sections you want to show in which order you want to show
 them.
 
+=Extra json options
+
+For now, you can control which {pygments theme}[http://pygments.org/docs/styles/#builtin-styles] will 
+be used for syntax highlighting by adding an
+
+    "options" : {"syntax": "pastie"}
+
+property to the json. The plan is to also control how the static assets are managed and stuff like that.
+
 Some useful styles for each slide are:
 
 * center - centers images on a slide
@@ -429,6 +438,7 @@ etc).
 * GLI gem
 * Firefox or Chrome to present
 * PDFKit (optional, for generating PDF of presentation) https://github.com/jdpace/PDFKit
+* Albino
 
 = Contributing
 
