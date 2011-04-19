@@ -5,6 +5,7 @@ require 'nokogiri'
 require 'showoff_utils'
 require 'princely'
 require 'fileutils'
+require 'albino'
 
 begin
   require 'RMagick'
@@ -29,7 +30,7 @@ require 'pp'
 
 class ShowOff < Sinatra::Application
 
-  Version = VERSION = '0.4.0'
+  Version = VERSION = '0.4.1'
 
   attr_reader :cached_image_size
 
@@ -155,15 +156,19 @@ class ShowOff < Sinatra::Application
 
     def update_commandline_code(slide)
       html = Nokogiri::XML.parse(slide)
-
       html.css('pre').each do |pre|
         pre.css('code').each do |code|
           out = code.text
           lines = out.split("\n")
           if lines.first[0, 3] == '@@@'
             lang = lines.shift.gsub('@@@', '').strip
-            pre.set_attribute('class', 'sh_' + lang)
-            code.content = lines.join("\n")
+            highlighted = Nokogiri::HTML.parse(Albino.colorize(lines.join("\n"), lang.to_sym))
+            begin 
+                pre.inner_html = highlighted.css('pre')[0].inner_html
+            rescue
+                pre.content = lines.join("\n")
+                pre.set_attribute('class', 'sh_' + lang)
+            end
           end
         end
       end

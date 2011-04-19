@@ -1,4 +1,4 @@
-!SLIDE
+!SLIDE code
 .notes notes for my slide
 
 	@@@ javascript
