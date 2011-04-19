@@ -1,6 +1,6 @@
 class ShowOffUtils
   SHOWOFF_JSON_FILE = 'showoff.json'
-
+  DEFAULT_OPTIONS = {"syntax"=>'emacs'}
   def self.create(dirname,create_samples,dir='one')
     Dir.mkdir(dirname) if !File.exists?(dirname)
     Dir.chdir(dirname) do
@@ -296,6 +296,15 @@ class ShowOffUtils
     if File.exists?(index)
       data = JSON.parse(File.read(index))
       data.is_a?(Hash) && data['name'] || "Presentation"
+    end
+  end
+
+  def self.showoff_options(dir = ".")
+    index = File.join(dir, ShowOffUtils::SHOWOFF_JSON_FILE )
+    order = nil
+    if File.exists?(index)
+      data = JSON.parse(File.read(index))
+      data.is_a?(Hash) && data['options'] || DEFAULT_OPTIONS 
     end
   end
 

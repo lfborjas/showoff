@@ -51,6 +51,7 @@ class ShowOff < Sinatra::Application
     @cached_image_size = {}
     puts options.pres_dir
     @pres_name = options.pres_dir.split('/').pop
+    @options = ShowOffUtils.showoff_options 
   end
 
   helpers do
