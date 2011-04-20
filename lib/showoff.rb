@@ -31,6 +31,7 @@ require 'pp'
 class ShowOff < Sinatra::Application
 
   Version = VERSION = '0.5.0'
+  EXECUTABLE_LANGS = ['javascript']
 
   attr_reader :cached_image_size
 
@@ -168,8 +169,11 @@ class ShowOff < Sinatra::Application
                 pre.inner_html = highlighted.css('pre')[0].inner_html
             rescue
                 pre.content = lines.join("\n")
-                pre.set_attribute('class', 'sh_' + lang)
             end
+            if EXECUTABLE_LANGS.member? lang
+                pre.set_attribute 'class', 'executable'
+            end
+
           end
         end
       end

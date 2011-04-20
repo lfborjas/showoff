@@ -85,7 +85,6 @@ function initializePresentation(prefix) {
 		slidesLoaded = true
 	}
 	setupSlideParamsCheck();
-	sh_highlightDocument(prefix+'/js/sh_lang/', '.min.js')
 	$(".preso").trigger("showoff:loaded");
 }
 
@@ -320,7 +319,7 @@ function keyDown(event)
 			gotoSlidenum = 0;
 		} else {
 			debug('executeCode');
-			executeCode.call($('.sh_javaScript code:visible'));
+			executeCode.call($('.executable code:visible'));
 		}
 
 	}
@@ -465,7 +464,7 @@ function executeCode () {
 	setTimeout(function() { codeDiv.removeClass("executing");}, 250 );
 	if (result != null) print(result);
 }
-$('.sh_javaScript code').live("click", executeCode);
+$('.executable code').live("click", executeCode);
 
 
 /********************
